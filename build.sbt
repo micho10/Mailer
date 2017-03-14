@@ -97,3 +97,24 @@ lazy val `mailer-stream-impl` = (project in file("mailer-stream-impl"))
 // Connect to a locally running Cassandra instance
 //lagomCassandraEnabled in ThisBuild := false
 //lagomUnmanagedServices in ThisBuild := Map("cas_native" -> "http://localhost:9042")
+
+
+
+/******************************* KAFKA SERVER OPTIONS *******************************/
+// Kafka uses Zookeeper (server started on port 2181)
+// Change Kafka port (Kafka's default = 9092)
+//lagomKafkaPort in ThisBuild := 10000
+//lagomKafkaZookeperPort in ThisBuild := 9999
+
+// Provide a custom 'server.properties' file to configure Kafka
+//lagomKafkaPropertiesFile in ThisBuild :=
+//  Some((baseDirectory in ThisBuild).value / "project" / "kafka-server.properties")
+
+// Disable the embedded Kafka server
+//lagomKafkaEnabled in ThisBuild := false
+
+// Connect to a locally running Kafka instance
+//lagomKafkaEnabled in ThisBuild := false
+//lagomKafkaAddress in ThisBuild := "localhost:10000"
+
+
