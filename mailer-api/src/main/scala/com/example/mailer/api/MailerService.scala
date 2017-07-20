@@ -1,7 +1,7 @@
 package com.example.mailer.api
 
 import akka.{Done, NotUsed}
-import com.lightbend.lagom.scaladsl.api.{Service, ServiceCall}
+import com.lightbend.lagom.scaladsl.api.{Descriptor, Service, ServiceCall}
 import play.api.libs.json.{Format, Json}
 
 /**
@@ -23,7 +23,7 @@ trait MailerService extends Service {
     */
   def useGreeting(id: String): ServiceCall[GreetingMessage, Done]
 
-  override final def descriptor = {
+  override final def descriptor: Descriptor = {
     import Service._
     // @formatter:off
     named("mailer").withCalls(

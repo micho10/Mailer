@@ -1,23 +1,29 @@
+lazy val root = (project in file("."))
+  .settings(name := "mailer")
+  .aggregate(mailerApi, mailerImpl)
+  .settings(commonSettings: _*)
+
 organization in ThisBuild := "com.example"
 version in ThisBuild := "1.0-SNAPSHOT"
 
 // the Scala version that will be used for cross-compiled libraries
 scalaVersion in ThisBuild := "2.11.8"
 
-val macwire   = "com.softwaremill.macwire"  %% "macros"     % "2.2.5" % "provided"
-val scalaTest = "org.scalatest"             %% "scalatest"  % "3.0.1" % Test
+val playJsonDerivedCodecs = "org.julienrf"              %% "play-json-derived-codecs" % "3.3"
+val macwire               = "com.softwaremill.macwire"  %% "macros"                   % "2.2.5" % "provided"
+val scalaTest             = "org.scalatest"             %% "scalatest"                % "3.0.1" % Test
 
-lazy val `mailer` = (project in file("."))
-  .aggregate(`mailer-api`, `mailer-impl`, `mailer-stream-api`, `mailer-stream-impl`)
+//lazy val `mailer` = (project in file("."))
+//  .aggregate(`mailer-api`, `mailer-impl`, `mailer-stream-api`, `mailer-stream-impl`)
 
-lazy val `mailer-api` = (project in file("mailer-api"))
+lazy val mailerApi = (project in file("mailer-api"))
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslApi
     )
   )
 
-lazy val `mailer-impl` = (project in file("mailer-impl"))
+lazy val mailerImpl = (project in file("mailer-impl"))
   .enablePlugins(LagomScala)
   .settings(
     libraryDependencies ++= Seq(
@@ -28,16 +34,16 @@ lazy val `mailer-impl` = (project in file("mailer-impl"))
     )
   )
   .settings(lagomForkedTestSettings: _*)
-  .dependsOn(`mailer-api`)
+  .dependsOn(mailerApi)
 
-lazy val `mailer-stream-api` = (project in file("mailer-stream-api"))
+lazy val mailerStreamApi = (project in file("mailer-stream-api"))
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslApi
     )
   )
 
-lazy val `mailer-stream-impl` = (project in file("mailer-stream-impl"))
+lazy val mailerStreamImpl = (project in file("mailer-stream-impl"))
   .enablePlugins(LagomScala)
   .settings(
     libraryDependencies ++= Seq(
@@ -46,7 +52,7 @@ lazy val `mailer-stream-impl` = (project in file("mailer-stream-impl"))
       scalaTest
     )
   )
-  .dependsOn(`mailer-stream-api`, `mailer-api`)
+  .dependsOn(mailerStreamApi, mailerApi)
 
 
 /******************************* SERVICE LOCATOR OPTIONS *******************************/
@@ -117,4 +123,7 @@ lazy val `mailer-stream-impl` = (project in file("mailer-stream-impl"))
 //lagomKafkaEnabled in ThisBuild := false
 //lagomKafkaAddress in ThisBuild := "localhost:10000"
 
+
+def commonSettings: Seq[Setting[_]] = Seq(
+)
 
