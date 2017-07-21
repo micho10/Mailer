@@ -9,9 +9,9 @@ version in ThisBuild := "1.0-SNAPSHOT"
 // the Scala version that will be used for cross-compiled libraries
 scalaVersion in ThisBuild := "2.11.8"
 
-val playJsonDerivedCodecs = "org.julienrf"              %% "play-json-derived-codecs" % "3.3"
-val macwire               = "com.softwaremill.macwire"  %% "macros"                   % "2.2.5" % "provided"
-val scalaTest             = "org.scalatest"             %% "scalatest"                % "3.0.1" % Test
+//val playJsonDerivedCodecs = "org.julienrf"              %  "play-json-derived-codecs_2.11" % "4.0.0"
+val macwire               = "com.softwaremill.macwire"  %% "macros"                   % "2.3.0" % "provided"
+val scalaTest             = "org.scalatest"             %% "scalatest"                % "3.0.3" % Test
 
 //lazy val `mailer` = (project in file("."))
 //  .aggregate(`mailer-api`, `mailer-impl`, `mailer-stream-api`, `mailer-stream-impl`)

@@ -30,7 +30,7 @@ abstract class MailerApplication(context: LagomApplicationContext)
     with AhcWSComponents {
 
   // Bind the services that this server provides
-  override lazy val lagomServer = LagomServer.forServices(
+  override lazy val lagomServer: LagomServer = LagomServer.forServices(
     bindService[MailerService].to(wire[MailerServiceImpl])
   )
 
