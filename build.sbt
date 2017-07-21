@@ -1,17 +1,25 @@
+import CompilerFlags._
+
 lazy val root = (project in file("."))
   .settings(name := "mailer")
   .aggregate(mailerApi, mailerImpl)
   .settings(commonSettings: _*)
 
 organization in ThisBuild := "com.example"
-version in ThisBuild := "1.0-SNAPSHOT"
+version      in ThisBuild := "1.0-SNAPSHOT"
+
+//mainClass    in ThisBuild := "com.example.mailer.Main"
 
 // the Scala version that will be used for cross-compiled libraries
-scalaVersion in ThisBuild := "2.11.8"
+scalaVersion in ThisBuild := "2.12.2"
 
 //val playJsonDerivedCodecs = "org.julienrf"              %  "play-json-derived-codecs_2.11" % "4.0.0"
 val macwire               = "com.softwaremill.macwire"  %% "macros"                   % "2.3.0" % "provided"
 val scalaTest             = "org.scalatest"             %% "scalatest"                % "3.0.3" % Test
+
+scalacOptions ++= compilerFlags
+// Uses existing values to initialize this setting
+scalacOptions in (Compile, console) ~= filterExcludedReplOptions
 
 //lazy val `mailer` = (project in file("."))
 //  .aggregate(`mailer-api`, `mailer-impl`, `mailer-stream-api`, `mailer-stream-impl`)
@@ -126,4 +134,3 @@ lazy val mailerStreamImpl = (project in file("mailer-stream-impl"))
 
 def commonSettings: Seq[Setting[_]] = Seq(
 )
-
