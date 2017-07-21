@@ -62,18 +62,15 @@ class MailerEntity extends PersistentEntity {
 
       // Command handler for the Hello command
       case (Hello(name, organization), ctx, state) =>
-        // Reply with a message built from the current message, and the name of
-        // the person we're meant to say hello to.
+        // Reply with a message built from the current message, and the name of the person we're meant to say hello to.
         ctx.reply(s"$message, $name!")
 
     }.onEvent {
 
       // Event handler for the GreetingMessageChanged event
       case (GreetingMessageChanged(newMessage), state) =>
-        // We simply update the current state to use the greeting message from
-        // the event.
+        // We simply update the current state to use the greeting message from the event.
         MailerState(newMessage, LocalDateTime.now().toString)
-
     }
   }
 }
