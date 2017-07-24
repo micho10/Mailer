@@ -1,5 +1,13 @@
 import CompilerFlags._
 
+// Resolvers
+resolvers ++= Seq(
+  Resolver.sonatypeRepo("snapshots"),
+  Resolver.bintrayRepo("websudos", "oss-releases"),
+  "Sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
+  Resolver.bintrayRepo("hseeberger", "maven")
+)
+
 lazy val root = (project in file("."))
   .settings(name := "mailer")
   .aggregate(mailerApi, mailerImpl)
@@ -11,23 +19,40 @@ version      in ThisBuild := "1.0-SNAPSHOT"
 //mainClass    in ThisBuild := "com.example.mailer.Main"
 
 // the Scala version that will be used for cross-compiled libraries
-scalaVersion in ThisBuild := "2.12.2"
+scalaVersion in ThisBuild := "2.11.8"
+
+val circeVersion = "0.8.0"
 
 //val playJsonDerivedCodecs = "org.julienrf"              %  "play-json-derived-codecs_2.11" % "4.0.0"
-val macwire               = "com.softwaremill.macwire"  %% "macros"                   % "2.3.0" % "provided"
-val scalaTest             = "org.scalatest"             %% "scalatest"                % "3.0.3" % Test
+val macwire   = "com.softwaremill.macwire"  %% "macros"        % "2.3.0"      % "provided"
+val scalaTest = "org.scalatest"             %% "scalatest"     % "3.0.3"      % Test
+val circe     = "io.circe" %% "circe-generic" % circeVersion
+val akkaJson  =  "de.heikoseeberger" %% "akka-http-circe" % "1.16.1"
+
+//val circeCore = "io.circe" %% "circe-core" % circeVersion
+//val circeGeneric = "io.circe" %% "circe-generic" % circeVersion
+//val circeParser = "io.circe" %% "circe-parser" % circeVersion
+
+//val circe     = Seq(
+//  "io.circe" %% "circe-core",
+//  "io.circe" %% "circe-generic",
+//  "io.circe" %% "circe-parser"
+//).map(_ % circeVersion).flatten
+
 
 scalacOptions ++= compilerFlags
 // Uses existing values to initialize this setting
 scalacOptions in (Compile, console) ~= filterExcludedReplOptions
 
-//lazy val `mailer` = (project in file("."))
-//  .aggregate(`mailer-api`, `mailer-impl`, `mailer-stream-api`, `mailer-stream-impl`)
-
 lazy val mailerApi = (project in file("mailer-api"))
   .settings(
     libraryDependencies ++= Seq(
-      lagomScaladslApi
+      lagomScaladslApi,
+      circe,
+      akkaJson
+//      circeCore,
+//      circeGeneric,
+//      circeParser
     )
   )
 

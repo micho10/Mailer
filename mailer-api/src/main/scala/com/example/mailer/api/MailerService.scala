@@ -12,6 +12,14 @@ import play.api.libs.json.{Format, Json}
   */
 trait MailerService extends Service {
 
+  def getMail(id: MailId)
+
+  def createMail(content: MailContent)
+
+  def updateMail(id: MailId, content: MailContent)
+
+  /********************************************************************************/
+
   /**
     * Example: curl http://localhost:9000/api/hello/Alice
     */
