@@ -11,6 +11,7 @@ object MailEntity {
   final case class UpdateMail(id: MailId, content: MailContent) extends MailCommand
 
   sealed trait MailEvent {
+    // Abstract because they've not been given a value
     val id: MailId
     val content: MailContent
   }
@@ -18,6 +19,7 @@ object MailEntity {
   final case class MailUpdated(id: MailId, content: MailContent) extends MailEvent
   final case class MailNotFound(id: MailId) extends RuntimeException(s"Mail not found with id: $id")
 
+  /* Either[Exception, Success] */
   type MaybeMail[+A] = Either[MailNotFound, A]
 
   final case class MailState(mails: Map[MailId, MailContent]) {
