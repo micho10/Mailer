@@ -38,5 +38,5 @@ abstract class MailerApplication(context: LagomApplicationContext)
   override lazy val jsonSerializerRegistry = MailerSerializerRegistry
 
   // Register the Mailer persistent entity
-  persistentEntityRegistry.register(wire[MailerEntity])
+  persistentEntityRegistry.register(wire[MailEntity])
 }

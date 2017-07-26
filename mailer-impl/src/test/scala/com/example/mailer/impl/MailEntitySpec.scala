@@ -6,7 +6,7 @@ import com.lightbend.lagom.scaladsl.testkit.PersistentEntityTestDriver
 import com.lightbend.lagom.scaladsl.playjson.JsonSerializerRegistry
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpec}
 
-class MailerEntitySpec extends WordSpec with Matchers with BeforeAndAfterAll {
+class MailEntitySpec extends WordSpec with Matchers with BeforeAndAfterAll {
 
   private val system = ActorSystem("MailerEntitySpec",
     JsonSerializerRegistry.actorSystemSetupFor(MailerSerializerRegistry))
@@ -16,7 +16,7 @@ class MailerEntitySpec extends WordSpec with Matchers with BeforeAndAfterAll {
   }
 
   private def withTestDriver(block: PersistentEntityTestDriver[MailerCommand[_], MailerEvent, MailerState] => Unit): Unit = {
-    val driver = new PersistentEntityTestDriver(system, new MailerEntity, "mailer-1")
+    val driver = new PersistentEntityTestDriver(system, new MailEntity, "mailer-1")
     block(driver)
     driver.getAllIssues should have size 0
   }

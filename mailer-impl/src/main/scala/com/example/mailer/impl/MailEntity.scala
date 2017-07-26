@@ -29,7 +29,7 @@ import scala.collection.immutable.Seq
   * This entity defines one event, the [[GreetingMessageChanged]] event,
   * which is emitted when a [[UseGreetingMessage]] command is received.
   */
-class MailerEntity extends PersistentEntity {
+class MailEntity extends PersistentEntity {
 
   override type Command = MailerCommand[_]
   override type Event = MailerEvent
