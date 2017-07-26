@@ -33,10 +33,10 @@ class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) exte
     */
   override def helloEmail(id: UUID): ServiceCall[NotUsed, String] = ServiceCall { _ =>
     // Look up the Mail entity for the given ID.
-    val ref = persistentEntityRegistry.refFor[MailEntity](id)
+    val ref = persistentEntityRegistry.refFor[MailEntity](id.toString)
 
     // Ask the entity the Hello command.
-    ref.ask(HelloEmail(id, None))
+    ref.ask(HelloEmail(id.toString, None))
   }
 
 }

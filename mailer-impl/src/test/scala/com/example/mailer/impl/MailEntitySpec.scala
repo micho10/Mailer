@@ -15,7 +15,7 @@ class MailEntitySpec extends WordSpec with Matchers with BeforeAndAfterAll {
     TestKit.shutdownActorSystem(system)
   }
 
-  private def withTestDriver(block: PersistentEntityTestDriver[MailerCommand[_], MailerEvent, MailerState] => Unit): Unit = {
+  private def withTestDriver(block: PersistentEntityTestDriver[MailerCommand[_], MailerEvent, MailState] => Unit): Unit = {
     val driver = new PersistentEntityTestDriver(system, new MailEntity, "mailer-1")
     block(driver)
     driver.getAllIssues should have size 0

@@ -21,6 +21,12 @@ trait MailerService extends Service {
 
   /**
     * Example: curl http://localhost:9000/api/email/Alice
+    *
+    * <code>ServiceCall</code> takes two type parameters: Request and Response. The Request parameter is the type of the
+    * incoming request message, and the Response parameter is the type of the outgoing response message.
+    *
+    * @param id
+    * @return   a handle to the call which can be invoked using the <code>invoke</code> method.
     */
   def helloEmail(id: UUID): ServiceCall[NotUsed, String]
 

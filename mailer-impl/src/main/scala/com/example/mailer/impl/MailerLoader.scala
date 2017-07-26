@@ -24,6 +24,7 @@ class MailerLoader extends LagomApplicationLoader {
   )
 }
 
+
 abstract class MailerApplication(context: LagomApplicationContext)
   extends LagomApplication(context)
     with CassandraPersistenceComponents
