@@ -88,3 +88,6 @@ project/boot/
 project/plugins/project/
 .history
 .lib/
+/web-gateway/target/
+/web-gateway/logs/
+/webGateway/project/target/

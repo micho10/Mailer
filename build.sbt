@@ -57,22 +57,22 @@ lazy val mailerStreamImpl = (project in file("mailer-stream-impl"))
   )
   .dependsOn(mailerStreamApi, mailerApi)
 
-lazy val webGateway = (project in file("web-gateway"))
-  .settings(commonSettings: _*)
-  .enablePlugins(PlayScala && LagomPlay)
-  .dependsOn(mailerApi)
-  .settings(
-    version := "1.0-SNAPSHOT",
-    libraryDependencies ++= Seq(
-      lagomScaladslServer,
-      macwire,
-      scalaTest,
-      "org.ocpsoft.prettytime" % "prettytime"            % "3.2.7.Final",
-      "org.webjars"            % "foundation"            % "6.2.3",
-      "org.webjars"            % "foundation-icon-fonts" % "d596a3cfb3"
-    ),
-    EclipseKeys.preTasks := Seq(compile in Compile)
-  )
+//lazy val webGateway = (project in file("web-gateway"))
+//  .settings(commonSettings: _*)
+//  .enablePlugins(PlayScala && LagomPlay)
+//  .dependsOn(mailerApi)
+//  .settings(
+//    version := "1.0-SNAPSHOT",
+//    libraryDependencies ++= Seq(
+//      lagomScaladslServer,
+//      macwire,
+//      scalaTest,
+//      "org.ocpsoft.prettytime" % "prettytime"            % "3.2.7.Final",
+//      "org.webjars"            % "foundation"            % "6.2.3",
+//      "org.webjars"            % "foundation-icon-fonts" % "d596a3cfb3"
+//    ),
+//    EclipseKeys.preTasks := Seq(compile in Compile)
+//  )
 
 
 /******************************* SERVICE LOCATOR OPTIONS *******************************/

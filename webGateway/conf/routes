@@ -2,6 +2,5 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /send/email                 controllers.Main.sendEmail
-
-GET     /send/scala/customMailer    controllers.Main.sendWithCustomMailer
+POST        /send/email                     controllers.MailController.sendEmail
+POST        /send/scala/customMailer        controllers.MailController.sendWithCustomMailer

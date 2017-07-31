@@ -1,19 +1,16 @@
 package controllers
 
-import java.io.File
 import javax.inject.Inject
 
-import play.api.Environment
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.Action
 
 
-//class Main @Inject()(mailer: MailerClient, environment:Environment) extends Controller {
-class Main @Inject()(environment:Environment) extends AbstractController {
+/**
+  * The @Inject tag indicates it's using an injected routes generator.
+  */
+class MailController @Inject() extends AbstractController {
 
-  def sendEmail = Action.async {
-
-  }
-
+  def sendEmail = ???
 //    Action {
 //    val cid = "1234"
 //    val email = Email(
