@@ -11,8 +11,25 @@ import com.lightbend.lagom.scaladsl.api.{Descriptor, Service, ServiceCall}
   */
 trait MailerStreamService extends Service {
 
+  /**
+    * Example: curl http://localhost:9000/api/email/Alice
+    *
+    * <code>ServiceCall</code> takes two type parameters: Request and Response. The Request parameter is the type of the
+    * incoming request message, and the Response parameter is the type of the outgoing response message.
+    *
+    * Lagom will choose an appropriate transport for the stream, typically, this will be WebSockets.
+    *
+    * @return   a handle to the call which can be invoked using the <code>invoke</code> method.
+    */
   def stream: ServiceCall[Source[String, NotUsed], Source[String, NotUsed]]
 
+  /**
+    * It defines the service name and the REST endpoints it offers.
+    *
+    * For each endpoint, declare an abstract method in the service interface.
+    *
+    * @return a Descriptor
+    */
   override final def descriptor: Descriptor = {
     import Service._
 

@@ -31,7 +31,7 @@ class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) exte
   /**
     * Example: curl http://localhost:9000/api/helloEmail/Alice
     */
-  override def helloEmail(id: UUID): ServiceCall[NotUsed, String] = ServiceCall { _ =>
+  override def sendHelloEmail(id: UUID): ServiceCall[NotUsed, String] = ServiceCall { _ =>
     // Look up the Mail entity for the given ID.
     val ref = persistentEntityRegistry.refFor[MailEntity](id.toString)
 

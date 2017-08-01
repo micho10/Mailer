@@ -1,7 +1,5 @@
 package com.example.mailer.api
 
-import java.util.UUID
-
 import akka.{Done, NotUsed}
 import com.lightbend.lagom.scaladsl.api.{Descriptor, Service, ServiceCall}
 import play.api.libs.json.{Format, Json}
@@ -9,7 +7,11 @@ import play.api.libs.json.{Format, Json}
 /**
   * The Mailer service interface.
   * <p>
-  * This describes everything that Lagom needs to know about how to serve and consume the MailerService.
+  * This describes everything that Lagom needs to know about how to serve and consume the MailerService. It defines how the
+  * service is invoked and implemented. It also defines the metadata that describes how the interface is mapped down onto an
+  * underlying transport protocol.
+  *
+  * The service descriptor, its implementation and consumption should remain agnostic to what transport is being used.
   */
 trait MailerService extends Service {
 
@@ -20,22 +22,21 @@ trait MailerService extends Service {
   def hello(id: String): ServiceCall[NotUsed, String]
 
   /**
-    * Example: curl http://localhost:9000/api/email/Alice
-    *
-    * <code>ServiceCall</code> takes two type parameters: Request and Response. The Request parameter is the type of the
-    * incoming request message, and the Response parameter is the type of the outgoing response message.
-    *
-    * @param id
-    * @return   a handle to the call which can be invoked using the <code>invoke</code> method.
-    */
-  def helloEmail(id: UUID): ServiceCall[NotUsed, String]
-
-  /**
     * Example: curl -H "Content-Type: application/json" -X POST -d '{"message":
     * "Hi"}' http://localhost:9000/api/hello/Alice
     */
   //TODO: to be removed
   def useGreeting(id: String): ServiceCall[GreetingMessage, Done]
+
+  /**
+    * Example: curl http://localhost:9000/api/email/Alice
+    *
+    * <code>ServiceCall</code> takes two type parameters: Request and Response. The Request parameter is the type of the
+    * incoming request message, and the Response parameter is the type of the outgoing response message.
+    *
+    * @return   a handle to the call which can be invoked using the <code>invoke</code> method.
+    */
+  def sendHelloEmail(subject: String): ServiceCall[String, Done]
 
   /**
     * It defines the service name and the REST endpoints it offers.
@@ -48,13 +49,19 @@ trait MailerService extends Service {
     import Service.{named, pathCall}
     // @formatter:off
     named("mailer").withCalls(
-      pathCall("/api/hello/:id", hello _),
-      pathCall("/api/hello/:id", useGreeting _),
-      pathCall("/api/email/:id", helloEmail _)
+      pathCall("/api/hello/:id",      hello _),
+      pathCall("/api/hello/:id",      useGreeting _),
+      pathCall("/api/email/:subject", sendHelloEmail _)
     ).withAutoAcl(true)
     // @formatter:on
   }
 }
+
+
+
+final case class MailContent(subject: String, to: String, body: String)
+
+
 
 /**
   * The greeting message class.
@@ -62,7 +69,6 @@ trait MailerService extends Service {
 //TODO: to be removed
 case class GreetingMessage(message: String)
 
-final case class MailContent(subject: String, to: String, body: String)
 
 
 //TODO: to be removed
