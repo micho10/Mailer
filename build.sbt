@@ -12,8 +12,10 @@ version      in ThisBuild := "1.0-SNAPSHOT"
 // the Scala version that will be used for cross-compiled libraries
 scalaVersion in ThisBuild := "2.11.8"
 
-val macwire   = "com.softwaremill.macwire"  %% "macros"        % "2.3.0"      % "provided"
-val scalaTest = "org.scalatest"             %% "scalatest"     % "3.0.3"      % Test
+val macwire    = "com.softwaremill.macwire"  %% "macros"        % "2.3.0" % "provided"
+val scalaTest  = "org.scalatest"             %% "scalatest"     % "3.0.3" % Test
+// https://mvnrepository.com/artifact/com.typesafe.play/play-mailer_2.11
+val playMailer = "com.typesafe.play"         %% "play-mailer"   % "6.0.0" % "provided"
 
 scalacOptions ++= compilerFlags
 // Uses existing values to initialize this setting
@@ -33,6 +35,7 @@ lazy val mailerImpl = (project in file("mailer-impl"))
       lagomScaladslPersistenceCassandra,
       lagomScaladslTestKit,
       macwire,
+      playMailer,
       scalaTest
     )
   )

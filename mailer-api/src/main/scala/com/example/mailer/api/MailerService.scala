@@ -36,7 +36,7 @@ trait MailerService extends Service {
     *
     * @return   a handle to the call which can be invoked using the <code>invoke</code> method.
     */
-  def sendHelloEmail(subject: String): ServiceCall[String, Done]
+  def sendHelloEmail(subject: String): ServiceCall[NotUsed, String]
 
   /**
     * It defines the service name and the REST endpoints it offers.
