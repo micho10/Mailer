@@ -22,7 +22,7 @@ import play.api.libs.ws.ahc.AhcWSComponents
   *
   * This class provides an abstraction over Play's application loader that provides Lagom specific functionality.
   */
-class MailerLoader extends LagomApplicationLoader {
+class MailerApplicationLoader extends LagomApplicationLoader {
 
   /**
     * Load a Lagom application for production.
@@ -76,6 +76,8 @@ class MailerLoader extends LagomApplicationLoader {
   * [[LagomApplicationLoader]], which trait is mixed in will vary depending on whether the application is being loaded
   * for production or for development.
   *
+  * Gets the AhcWSComponents mixed in using the cake pattern and implements the <code>lazy val lagomServer</code> using MacWire.
+  *
   * @param context The application context.
   */
 abstract class MailerApplication(context: LagomApplicationContext)
@@ -83,9 +85,8 @@ abstract class MailerApplication(context: LagomApplicationContext)
     with CassandraPersistenceComponents
     with AhcWSComponents {
 
-  // Bind the services that this server provides
-  override lazy val lagomServer: LagomServer =
-    serverFor[MailerService](bindService[MailerService].to(wire[MailerServiceImpl]).service)
+  // Lagom will use this to discover the service bindings and create a Play router for handling the service calls
+  override lazy val lagomServer: LagomServer = serverFor[MailerService](wire[MailerServiceImpl])
 
   // Register the JSON serializer registry
   override lazy val jsonSerializerRegistry = MailerSerializerRegistry

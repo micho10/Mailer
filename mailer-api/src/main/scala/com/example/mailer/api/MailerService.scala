@@ -52,7 +52,7 @@ trait MailerService extends Service {
       pathCall("/api/hello/:id",      hello _),
       pathCall("/api/hello/:id",      useGreeting _),
       pathCall("/api/email/:subject", sendHelloEmail _)
-    ).withAutoAcl(true)
+    ).withAutoAcl(true)   // Generate service ACLs from each call's path pattern
     // @formatter:on
   }
 }
