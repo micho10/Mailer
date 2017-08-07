@@ -62,7 +62,7 @@ class MailerApplicationLoader extends LagomApplicationLoader {
 
 
 /**
-  * A Lagom application.
+  * A Lagom application (the cake).
   *
   * It subclasses [[LagomApplication]] in order to wire together a Lagom application.
   *

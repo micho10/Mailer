@@ -23,7 +23,6 @@ trait MailerService extends Service {
 //
 //  /**
 //    * Example: curl -H "Content-Type: application/json" -X POST -d '{"message":
-//    * "Hi"}' http://localhost:9000/api/hello/Alice
 //    */
 //  //TODO: to be removed
 //  def useGreeting(id: String): ServiceCall[GreetingMessage, Done]
@@ -34,7 +33,7 @@ trait MailerService extends Service {
     * [[ServiceCall]] takes two type parameters: Request and Response. The Request parameter is the type of the incoming
     * request message, and the Response parameter is the type of the outgoing response message.
     *
-    * @return   a handle to the call which can be invoked using the [[invoke()]] method.
+    * @return a handle to the call which can be invoked using the [[invoke()]] method.
     */
   def sendHelloEmail(subject: String): ServiceCall[NotUsed, String]
 
@@ -47,13 +46,11 @@ trait MailerService extends Service {
     */
   override final def descriptor: Descriptor = {
     import Service.{named, pathCall}
-    // @formatter:off
     named("mailer").withCalls(
 //      pathCall("/api/hello/:id",      hello _),
 //      pathCall("/api/hello/:id",      useGreeting _),
       pathCall("/api/email/:subject", sendHelloEmail _)
     ).withAutoAcl(true)   // Generate service ACLs from each call's path pattern
-    // @formatter:on
   }
 }
 

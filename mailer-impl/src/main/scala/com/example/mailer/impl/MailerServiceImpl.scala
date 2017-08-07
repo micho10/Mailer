@@ -45,16 +45,16 @@ class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) exte
       s"TEST $subject",
       "Mister FROM <test@glsign.com>",
       Seq("Miss TO <carlos.sainz@globalsign.com>"),
-      // Adds attachment
-      attachments = Seq(
-//        AttachmentFile("favicon.png", new File(environment.classLoader.getResource("public/images/favicon.png").getPath), contentId = Some(cid)),
-        AttachmentData("data.txt", "data".getBytes, "text/plain", Some("Simple data"), Some(EmailAttachment.INLINE))
-      ),
+//      // Adds attachment
+//      attachments = Seq(
+////        AttachmentFile("favicon.png", new File(environment.classLoader.getResource("public/images/favicon.png").getPath), contentId = Some(cid)),
+//        AttachmentData("data.txt", "data".getBytes, "text/plain", Some("Simple data"), Some(EmailAttachment.INLINE))
+//      ),
       // Sends text, HTML or both ...
       bodyText = Some("A text message"),
       bodyHtml = Some(s"""<html><body><p>An <b>html</b> message with cid <img src="cid:$cid"></p></body></html>""")
     )
-//    val id = mailer.send(email)
+    val id = mailer.send(email)
 
     // Look up the Mail entity for the given ID.
     val ref = persistentEntityRegistry.refFor[MailEntity](subject)

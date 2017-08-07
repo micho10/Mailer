@@ -36,9 +36,11 @@ class CustomMailerConfigurationModule extends Module {
 
   /**
     *
-    * @param environment
-    * @param configuration
-    * @return
+    * @param environment   The environment for the application. Captures concerns relating to the classloader and the filesystem
+    *                      for the application.
+    * @param configuration A full configuration set.
+    * @return              A sequence of bindings. Bindings are used to bind classes, optionally qualified by a JSR-330 qualifier
+    *                      annotation, to instances, providers or implementation classes.
     */
   override def bindings(environment: Environment, configuration: api.Configuration): Seq[Binding[_]] = Seq(
     bind[SMTPConfiguration].toProvider[CustomSMTPConfigurationProvider]

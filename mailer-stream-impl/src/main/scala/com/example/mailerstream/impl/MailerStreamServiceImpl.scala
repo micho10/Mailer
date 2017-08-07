@@ -11,6 +11,6 @@ import scala.concurrent.Future
   */
 class MailerStreamServiceImpl(mailerService: MailerService) extends MailerStreamService {
   def stream = ServiceCall { hellos =>
-    Future.successful(hellos.mapAsync(8)(mailerService.hello(_).invoke()))
+    Future.successful(hellos.mapAsync(8)(mailerService.sendHelloEmail(_).invoke()))
   }
 }
