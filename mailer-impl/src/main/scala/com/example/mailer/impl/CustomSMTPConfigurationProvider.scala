@@ -8,17 +8,32 @@ import play.api.inject.{Binding, Module}
 import play.api.libs.mailer.SMTPConfiguration
 
 /**
+  * [[SMTPConfiguration]]. Typically implemented by an injector. For any type [[SMTPConfiguration]] that can be injected,
+  * you can also inject [[Provider<SMTPConfiguration>]]. Compared to injecting [[SMTPConfiguration]] directly, injecting
+  * [[Provider<SMTPConfiguration>]] enables:
   *
+  * <ul>
+  * <li>retrieving multiple instances.</li>
+  * <li>lazy or optional retrieval of an instance.</li>
+  * <li>breaking circular dependencies.</li>
+  * <li>abstracting scope so you can look up an instance in a smaller scope from an instance in a containing scope.</li>
+  * </ul>
   */
 class CustomSMTPConfigurationProvider extends Provider[SMTPConfiguration] {
+  // Provides a fully-constructed and injected instance of SMTPConfiguration
   override def get(): SMTPConfiguration = new SMTPConfiguration("example.com", 1234)
 }
 
 
+
 /**
+  * A Play dependency injection module.
   *
+  * Dependency injection modules can be used by Play plugins to provide bindings for JSR-330 compliant ApplicationLoaders.
+  * Any plugin that wants to provide components that a Play application can use may implement one of these.
   */
 class CustomMailerConfigurationModule extends Module {
+
   /**
     *
     * @param environment

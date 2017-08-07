@@ -14,12 +14,12 @@ trait MailerStreamService extends Service {
   /**
     * Example: curl http://localhost:9000/api/email/Alice
     *
-    * <code>ServiceCall</code> takes two type parameters: Request and Response. The Request parameter is the type of the
+    * { @code ServiceCall} takes two type parameters: Request and Response. The Request parameter is the type of the
     * incoming request message, and the Response parameter is the type of the outgoing response message.
     *
     * Lagom will choose an appropriate transport for the stream, typically, this will be WebSockets.
     *
-    * @return   a handle to the call which can be invoked using the <code>invoke</code> method.
+    * @return a handle to the call which can be invoked using the { @code invoke()} method.
     */
   def stream: ServiceCall[Source[String, NotUsed], Source[String, NotUsed]]
 
@@ -28,7 +28,7 @@ trait MailerStreamService extends Service {
     *
     * For each endpoint, declare an abstract method in the service interface.
     *
-    * @return a Descriptor
+    * @return a service Descriptor
     */
   override final def descriptor: Descriptor = {
     import Service._
@@ -38,5 +38,5 @@ trait MailerStreamService extends Service {
         namedCall("stream", stream)
       ).withAutoAcl(true)
   }
-}
 
+}

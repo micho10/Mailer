@@ -3,33 +3,41 @@ package com.example.mailer.impl
 import akka.NotUsed
 import com.example.mailer.api.MailerService
 import com.lightbend.lagom.scaladsl.api.ServiceCall
-import com.lightbend.lagom.scaladsl.persistence.PersistentEntityRegistry
+import com.lightbend.lagom.scaladsl.persistence._
 import org.apache.commons.mail.EmailAttachment
 import play.api.libs.mailer.{AttachmentData, Email}
 
 /**
   * Implementation of the MailerService.
+  *
+  * @param persistentEntityRegistry a registry for all [[PersistentEntity]] classes, which  must be registered here
+  *                                 with [[PersistentEntityRegistry#register]] at startup. Later, [[PersistentEntityRef]] can be
+  *                                 retrieved with [[PersistentEntityRegistry#refFor]]. Commands are sent to a
+  *                                 [[PersistentEntity]] using a `PersistentEntityRef`.
   */
 class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
 
-  override def hello(id: String) = ServiceCall { _ =>
-    // Look up the Mailer entity for the given ID.
-    val ref = persistentEntityRegistry.refFor[MailEntity](id)
-
-    // Ask the entity the Hello command.
-    ref.ask(Hello(id, None))
-  }
-
-  override def useGreeting(id: String) = ServiceCall { request =>
-    // Look up the Mailer entity for the given ID.
-    val ref = persistentEntityRegistry.refFor[MailEntity](id)
-
-    // Tell the entity to use the greeting message specified.
-    ref.ask(UseGreetingMessage(request.message))
-  }
+//  override def hello(id: String) = ServiceCall { _ =>
+//    // Look up the Mailer entity for the given ID.
+//    val ref = persistentEntityRegistry.refFor[MailEntity](id)
+//
+//    // Ask the entity the Hello command.
+//    ref.ask(Hello(id, None))y
+//  }
+//
+//  override def useGreeting(id: String) = ServiceCall { request =>
+//    // Look up the Mailer entity for the given ID.
+//    val ref = persistentEntityRegistry.refFor[MailEntity](id)
+//
+//    // Tell the entity to use the greeting message specified.
+//    ref.ask(UseGreetingMessage(request.message))
+//  }
 
   /**
     * Example: curl http://localhost:9000/api/helloEmail/Alice
+    *
+    * @param subject email's subject
+    * @return        a handle to the call which can be invoked using the [[invoke()]] method.
     */
   override def sendHelloEmail(subject: String): ServiceCall[NotUsed, String] = ServiceCall { _ =>
     val cid = "1234"

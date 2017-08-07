@@ -69,14 +69,14 @@ class MailerApplicationLoader extends LagomApplicationLoader {
   * This includes the Lagom server components (which builds and provides the Lagom router) as well as the Lagom
   * service client components (which allows implementing Lagom service clients from Lagom service descriptors).
   *
-  * There are two abstract defs that must be implemented, one is [[LagomServerComponents.lagomServer]], the other
-  * is [[LagomServiceClientComponents.serviceLocator]]. Typically, the `lagomServer` component will be implemented by
+  * There are two abstract defs that must be implemented, one is [[LagomServerComponents#lagomServer]], the other
+  * is [[LagomServiceClientComponents#serviceLocator]]. Typically, the `lagomServer` component will be implemented by
   * an abstract subclass of [[LagomApplication]], and will bind all the services that this Lagom application provides.
   * Meanwhile, the `serviceLocator` component will be provided by mixing in a service locator components trait in
   * [[LagomApplicationLoader]], which trait is mixed in will vary depending on whether the application is being loaded
   * for production or for development.
   *
-  * Gets the AhcWSComponents mixed in using the cake pattern and implements the <code>lazy val lagomServer</code> using MacWire.
+  * Gets the AhcWSComponents mixed in using the cake pattern and implements the `lazy val lagomServer` using MacWire.
   *
   * @param context The application context.
   */
