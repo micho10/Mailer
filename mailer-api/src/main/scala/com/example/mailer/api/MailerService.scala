@@ -1,8 +1,7 @@
 package com.example.mailer.api
 
-import akka.{Done, NotUsed}
+import akka.NotUsed
 import com.lightbend.lagom.scaladsl.api.{Descriptor, Service, ServiceCall}
-import play.api.libs.json.{Format, Json}
 
 /**
   * The Mailer service interface.
@@ -38,6 +37,20 @@ trait MailerService extends Service {
   def sendHelloEmail(subject: String): ServiceCall[NotUsed, String]
 
   /**
+    *
+    * @param subject
+    * @param from
+    * @param to
+    * @param bodyText
+    * @param bodyHtml
+    * @param charset
+    * @param cc
+    * @param bcc
+    */
+  def sendEmail(subject: String, from: String, to: String, bodyText: String, bodyHtml: String, charset: String,
+                cc: String, bcc: String): ServiceCall[NotUsed, String]
+
+  /**
     * It defines the service name and the REST endpoints it offers.
     *
     * For each endpoint, declare an abstract method in the service interface.
@@ -49,7 +62,8 @@ trait MailerService extends Service {
     named("mailer").withCalls(
 //      pathCall("/api/hello/:id",      hello _),
 //      pathCall("/api/hello/:id",      useGreeting _),
-      pathCall("/api/email/:subject", sendHelloEmail _)
+      pathCall("/api/email/:subject", sendHelloEmail _),
+      pathCall("/api/email/send?subject&from&to&bodyText&bodyHtml&cc&bcc", sendEmail _)
     ).withAutoAcl(true)   // Generate service ACLs from each call's path pattern
   }
 }
