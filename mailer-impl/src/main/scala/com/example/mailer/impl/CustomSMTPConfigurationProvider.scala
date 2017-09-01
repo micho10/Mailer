@@ -13,10 +13,10 @@ import play.api.libs.mailer.SMTPConfiguration
   * [[Provider<SMTPConfiguration>]] enables:
   *
   * <ul>
-  * <li>retrieving multiple instances.</li>
-  * <li>lazy or optional retrieval of an instance.</li>
-  * <li>breaking circular dependencies.</li>
-  * <li>abstracting scope so you can look up an instance in a smaller scope from an instance in a containing scope.</li>
+  *   <li>retrieving multiple instances.</li>
+  *   <li>lazy or optional retrieval of an instance.</li>
+  *   <li>breaking circular dependencies.</li>
+  *   <li>abstracting scope so you can look up an instance in a smaller scope from an instance in a containing scope.</li>
   * </ul>
   */
 class CustomSMTPConfigurationProvider extends Provider[SMTPConfiguration] {

@@ -4,7 +4,7 @@ import akka.NotUsed
 import com.example.mailer.api.MailerService
 import com.lightbend.lagom.scaladsl.api.ServiceCall
 import com.lightbend.lagom.scaladsl.persistence._
-import play.api.libs.mailer.{Email, MailerClient}
+import play.api.libs.mailer.Email
 
 /**
   * Implementation of the MailerService.
