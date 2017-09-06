@@ -14,18 +14,6 @@ import com.lightbend.lagom.scaladsl.api.{Descriptor, Service, ServiceCall}
   */
 trait MailerService extends Service {
 
-//  /**
-//    * Example: curl http://localhost:9000/api/hello/Alice
-//    */
-//  //TODO: to be removed
-//  def hello(id: String): ServiceCall[NotUsed, String]
-//
-//  /**
-//    * Example: curl -H "Content-Type: application/json" -X POST -d '{"message":
-//    */
-//  //TODO: to be removed
-//  def useGreeting(id: String): ServiceCall[GreetingMessage, Done]
-
   /**
     * Example: curl http://localhost:9000/api/email/Alice
     *
@@ -60,8 +48,6 @@ trait MailerService extends Service {
   override final def descriptor: Descriptor = {
     import Service.{named, pathCall}
     named("mailer").withCalls(
-//      pathCall("/api/hello/:id",      hello _),
-//      pathCall("/api/hello/:id",      useGreeting _),
       pathCall("/api/email/:subject", sendHelloEmail _),
       pathCall("/api/email/send?subject&from&to&bodyText&bodyHtml&cc&bcc", sendEmail _)
     ).withAutoAcl(true)   // Generate service ACLs from each call's path pattern
@@ -72,22 +58,3 @@ trait MailerService extends Service {
 
 final case class MailContent(subject: String, to: String, body: String)
 
-
-
-///**
-//  * The greeting message class.
-//  */
-////TODO: to be removed
-//case class GreetingMessage(message: String)
-
-
-
-////TODO: to be removed
-//object GreetingMessage {
-//  /**
-//    * Format for converting greeting messages to and from JSON.
-//    *
-//    * This will be picked up by a Lagom implicit conversion from Play's JSON format to Lagom's message serializer.
-//    */
-//  implicit val format: Format[GreetingMessage] = Json.format[GreetingMessage]
-//}

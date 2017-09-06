@@ -14,23 +14,8 @@ import play.api.libs.mailer.Email
   *                                 retrieved with [[PersistentEntityRegistry#refFor]]. Commands are sent to a
   *                                 [[PersistentEntity]] using a `PersistentEntityRef`.
   */
+//class MailerServiceImpl(mailerClient: MailerClient, persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
 class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
-
-//  override def hello(id: String) = ServiceCall { _ =>
-//    // Look up the Mailer entity for the given ID.
-//    val ref = persistentEntityRegistry.refFor[MailEntity](id)
-//
-//    // Ask the entity the Hello command.
-//    ref.ask(Hello(id, None))y
-//  }
-//
-//  override def useGreeting(id: String) = ServiceCall { request =>
-//    // Look up the Mailer entity for the given ID.
-//    val ref = persistentEntityRegistry.refFor[MailEntity](id)
-//
-//    // Tell the entity to use the greeting message specified.
-//    ref.ask(UseGreetingMessage(request.message))
-//  }
 
   /**
     * Example: curl http://localhost:9000/api/helloEmail/Alice
