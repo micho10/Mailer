@@ -19,6 +19,7 @@ import play.api.libs.mailer.SMTPConfiguration
   *   <li>abstracting scope so you can look up an instance in a smaller scope from an instance in a containing scope.</li>
   * </ul>
   */
+@Deprecated
 class CustomSMTPConfigurationProvider extends Provider[SMTPConfiguration] {
   // Provides a fully-constructed and injected instance of SMTPConfiguration
   override def get(): SMTPConfiguration = new SMTPConfiguration("example.com", 1234)
@@ -32,6 +33,7 @@ class CustomSMTPConfigurationProvider extends Provider[SMTPConfiguration] {
   * Dependency injection modules can be used by Play plugins to provide bindings for JSR-330 compliant ApplicationLoaders.
   * Any plugin that wants to provide components that a Play application can use may implement one of these.
   */
+@Deprecated
 class CustomMailerConfigurationModule extends Module {
 
   /**

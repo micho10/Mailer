@@ -1,10 +1,12 @@
 package com.example.mailer.impl
 
+import javax.inject.Inject
+
 import akka.NotUsed
 import com.example.mailer.api.MailerService
 import com.lightbend.lagom.scaladsl.api.ServiceCall
 import com.lightbend.lagom.scaladsl.persistence._
-import play.api.libs.mailer.Email
+import play.api.libs.mailer.{Email, MailerClient}
 
 /**
   * Implementation of the MailerService.
@@ -15,10 +17,14 @@ import play.api.libs.mailer.Email
   *                                 [[PersistentEntity]] using a `PersistentEntityRef`.
   */
 //class MailerServiceImpl(mailerClient: MailerClient, persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
-class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
+class MailerServiceImpl @Inject() (mailerClient: MailerClient)(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
+
+//  private val mailerClient: MailerClient = new MailerClient {
+//    override def send(data: Email): String = ???
+//  }
 
   /**
-    * Example: curl http://localhost:9000/api/helloEmail/Alice
+    * Example: curl http://localhost:9000/api/helloEmail/
     *
     * @param subject email's subject
     * @return        a handle to the call which can be invoked using the [[invoke()]] method.
