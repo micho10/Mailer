@@ -1,7 +1,7 @@
 package com.example.mailer.impl
 
 import com.typesafe.config.Config
-import play.api.inject.Module
+import play.api.inject.{Binding, Module}
 import play.api.{Configuration, Environment}
 
 /**
@@ -19,7 +19,7 @@ class ConfigModule extends Module {
     * @return              A sequence of bindings. Bindings are used to bind classes, optionally qualified by a JSR-330 qualifier
     *                      annotation, to instances, providers or implementation classes.
     */
-  override def bindings(environment: Environment, configuration: Configuration) = Seq(
+  override def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = Seq(
     bind[Config].toInstance(configuration.underlying)
   )
 }

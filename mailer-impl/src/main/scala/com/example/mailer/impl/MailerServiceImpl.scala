@@ -1,7 +1,5 @@
 package com.example.mailer.impl
 
-import javax.inject.Inject
-
 import akka.NotUsed
 import com.example.mailer.api.MailerService
 import com.lightbend.lagom.scaladsl.api.ServiceCall
@@ -16,12 +14,10 @@ import play.api.libs.mailer.{Email, MailerClient}
   *                                 retrieved with [[PersistentEntityRegistry#refFor]]. Commands are sent to a
   *                                 [[PersistentEntity]] using a `PersistentEntityRef`.
   */
-//class MailerServiceImpl(mailerClient: MailerClient, persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
-class MailerServiceImpl @Inject() (mailerClient: MailerClient)(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
+class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService with MailerClient {
+//class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
 
-//  private val mailerClient: MailerClient = new MailerClient {
-//    override def send(data: Email): String = ???
-//  }
+//  override def send(data: Email) = super.send(data)
 
   /**
     * Example: curl http://localhost:9000/api/helloEmail/
@@ -44,7 +40,7 @@ class MailerServiceImpl @Inject() (mailerClient: MailerClient)(persistentEntityR
       bodyText = Some("A text message"),
       bodyHtml = Some(s"""<html><body><p>An <b>html</b> message with cid <img src="cid:$cid"></p></body></html>""")
     )
-//    val id = mailerClient.send(email)
+    val id = send(email)
 
     // Look up the Mail entity for the given ID.
     val ref = persistentEntityRegistry.refFor[MailEntity](subject)
@@ -66,7 +62,7 @@ class MailerServiceImpl @Inject() (mailerClient: MailerClient)(persistentEntityR
       Seq(bcc)
     )
 
-//    val id = mailerClient.send(email)
+    val id = send(email)
 
     // Look up the Mail entity for the given ID.
     val ref = persistentEntityRegistry.refFor[MailEntity](subject)
@@ -87,5 +83,4 @@ class MailerServiceImpl @Inject() (mailerClient: MailerClient)(persistentEntityR
 //  bounceAddress: Option[String] = None,
 //  attachments: Seq[Attachment] = Seq.empty,
 //  headers: Seq[(String, String)] = Seq.empty)
-
 }
