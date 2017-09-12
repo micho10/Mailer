@@ -8,6 +8,8 @@ import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.lightbend.lagom.scaladsl.persistence.cassandra.CassandraPersistenceComponents
 import com.lightbend.lagom.scaladsl.server._
 import com.softwaremill.macwire._
+import com.typesafe.config.Config
+import play.api.libs.mailer.MailerComponents
 import play.api.libs.ws.ahc.AhcWSComponents
 
 /**
@@ -36,6 +38,8 @@ class MailerApplicationLoader extends LagomApplicationLoader {
   override def load(context: LagomApplicationContext): LagomApplication =
     new MailerApplication(context) {
       override def serviceLocator: ServiceLocator = NoServiceLocator
+
+      override def config: Config = wire[Config]
     }
 
   /**
@@ -49,7 +53,10 @@ class MailerApplicationLoader extends LagomApplicationLoader {
     * @return A lagom application.
     */
   override def loadDevMode(context: LagomApplicationContext): LagomApplication =
-    new MailerApplication(context) with LagomDevModeComponents
+    new MailerApplication(context) with LagomDevModeComponents {
+
+      override def config: Config = wire[Config]
+    }
 
   /**
     * This method allows tooling, such as ConductR, to discover the service (if any) offered by this application.
@@ -82,6 +89,7 @@ class MailerApplicationLoader extends LagomApplicationLoader {
   */
 abstract class MailerApplication(context: LagomApplicationContext)
   extends LagomApplication(context)
+    with MailerComponents // add this here: Nothing = null
     with CassandraPersistenceComponents
     with AhcWSComponents {
 

@@ -14,10 +14,13 @@ import play.api.libs.mailer.{Email, MailerClient}
   *                                 retrieved with [[PersistentEntityRegistry#refFor]]. Commands are sent to a
   *                                 [[PersistentEntity]] using a `PersistentEntityRef`.
   */
-class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService with MailerClient {
 //class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
+class MailerServiceImpl(mailerClient: MailerClient, persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
+//class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService with MailerClient {
 
-//  override def send(data: Email) = super.send(data)
+//  override def send(data: Email) = ???
+
+//  val mailerClient: MailerClient
 
   /**
     * Example: curl http://localhost:9000/api/helloEmail/
@@ -40,7 +43,7 @@ class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) exte
       bodyText = Some("A text message"),
       bodyHtml = Some(s"""<html><body><p>An <b>html</b> message with cid <img src="cid:$cid"></p></body></html>""")
     )
-    val id = send(email)
+    val id = mailerClient.send(email)
 
     // Look up the Mail entity for the given ID.
     val ref = persistentEntityRegistry.refFor[MailEntity](subject)
@@ -62,7 +65,7 @@ class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) exte
       Seq(bcc)
     )
 
-    val id = send(email)
+    val id = mailerClient.send(email)
 
     // Look up the Mail entity for the given ID.
     val ref = persistentEntityRegistry.refFor[MailEntity](subject)
