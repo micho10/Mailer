@@ -14,13 +14,7 @@ import play.api.libs.mailer.{Email, MailerClient}
   *                                 retrieved with [[PersistentEntityRegistry#refFor]]. Commands are sent to a
   *                                 [[PersistentEntity]] using a `PersistentEntityRef`.
   */
-//class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
 class MailerServiceImpl(mailerClient: MailerClient, persistentEntityRegistry: PersistentEntityRegistry) extends MailerService {
-//class MailerServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends MailerService with MailerClient {
-
-//  override def send(data: Email) = ???
-
-//  val mailerClient: MailerClient
 
   /**
     * Example: curl http://localhost:9000/api/helloEmail/

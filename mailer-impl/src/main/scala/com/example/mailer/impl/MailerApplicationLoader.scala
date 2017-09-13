@@ -8,8 +8,8 @@ import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.lightbend.lagom.scaladsl.persistence.cassandra.CassandraPersistenceComponents
 import com.lightbend.lagom.scaladsl.server._
 import com.softwaremill.macwire._
-import com.typesafe.config.Config
-import play.api.libs.mailer.MailerComponents
+import com.typesafe.config.{Config, ConfigFactory}
+import play.api.libs.mailer.{MailerComponents, SMTPConfiguration}
 import play.api.libs.ws.ahc.AhcWSComponents
 
 /**
@@ -38,8 +38,7 @@ class MailerApplicationLoader extends LagomApplicationLoader {
   override def load(context: LagomApplicationContext): LagomApplication =
     new MailerApplication(context) {
       override def serviceLocator: ServiceLocator = NoServiceLocator
-
-      override def config: Config = wire[Config]
+      override def config: Config = ConfigFactory.load()
     }
 
   /**
@@ -54,8 +53,7 @@ class MailerApplicationLoader extends LagomApplicationLoader {
     */
   override def loadDevMode(context: LagomApplicationContext): LagomApplication =
     new MailerApplication(context) with LagomDevModeComponents {
-
-      override def config: Config = wire[Config]
+      override def config: Config = ConfigFactory.load()
     }
 
   /**
